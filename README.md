@@ -9,20 +9,6 @@ This is a powerful open-source library for sending SMS message, which will help 
 
 We support the following SMS providers, welcome to contribute.
 
-- [Twilio](https://www.twilio.com)
-- [Amazon SNS](https://aws.amazon.com/sns/)
-- [Azure ACS](https://azure.microsoft.com/en-us/products/communication-services)
-- [GCCPAY](https://gccpay.com/)
-- [Infobip](https://www.infobip.com/)
-- [SUBMAIL](https://en.mysubmail.com/)
-- [SmsBao](https://www.smsbao.com/)
-- [Alibaba Cloud](https://www.aliyun.com/product/sms)
-- [Tencent Cloud](https://cloud.tencent.com/document/product/382)
-- [Baidu Cloud](https://cloud.baidu.com/product/sms.html)
-- [VolcEngine](https://www.volcengine.com/product/cloud-sms)
-- [Huawei Cloud](https://www.huaweicloud.com/product/msgsms.html)
-- [UCloud](https://www.ucloud.cn/site/product/usms.html)
-- [Huyi](https://www.ihuyi.com/)
 - [Netgsm](https://www.netgsm.com.tr/) 🇹🇷 🇹🇷 🇹🇷
 
 ## Installation
@@ -63,79 +49,6 @@ SendMessage(param map[string]string, targetPhoneNumber ...string) error
 
 ## Example
 
-### Twilio
-
-Please get necessary information from Twilio [console](https://console.twilio.com/)
-
-```go
-package main
-
-import "github.com/casdoor/go-sms-sender"
-
-func main() {
-	client, err := go_sms_sender.NewSmsClient(go_sms_sender.Twilio, "ACCOUNT_SID", "AUTH_TOKEN", "", "TEMPLATE_CODE")
-	if err != nil {
-		panic(err)
-	}
-
-	params := map[string]string{}
-	params["code"] = "123456"
-	phoneNumer := "+8612345678910"
-	err = client.SendMessage(params, phoneNumer)
-	if err != nil {
-		panic(err)
-	}
-}
-```
-
-### Aliyun
-
-Before you begin, you need to sign up for an Aliyun account and retrieve your [Credentials](https://usercenter.console.aliyun.com/#/manage/ak).
-
-```go
-package main
-
-import "github.com/casdoor/go-sms-sender"
-
-func main() {
-	client, err := go_sms_sender.NewSmsClient(go_sms_sender.Aliyun, "ACCESS_KEY_ID", "ACCESS_KEY_SECRET", "SIGN_NAME", "TEMPLATE_CODE")
-	if err != nil {
-		panic(err)
-	}
-
-	params := map[string]string{}
-	params["code"] = "473956"
-	phoneNumer := "+8612345678910"
-	err = client.SendMessage(params, phoneNumer)
-	if err != nil {
-		panic(err)
-	}
-}
-```
-
-### Tencent Cloud
-
-```go
-package main
-
-import "github.com/casdoor/go-sms-sender"
-
-func main() {
-	client, err := go_sms_sender.NewSmsClient(go_sms_sender.TencentCloud, "secretId", "secretKey", "SIGN_NAME", "TEMPLATE_CODE", "APP_ID")
-	if err != nil {
-		panic(err)
-	}
-
-	params := map[string]string{}
-	params["0"] = "473956"
-	phoneNumer := "+8612345678910"
-	err = client.SendMessage(params, phoneNumer)
-	if err != nil {
-		panic(err)
-	}
-}
-```
-
 ### Netgsm
 
 - yourAccessId: is KullaniciAdi
@@ -145,7 +58,7 @@ func main() {
 ```go
 package main
 
-import "github.com/casdoor/go-sms-sender"
+import "github.com/yemosoft/go_sms_sender_netgsm"
 
 func main() {
 	client, err := go_sms_sender.NewSmsClient(go_sms_sender.Netgsm, "yourAccessId", "yourAccessKey", "yourSign", "yourTemplate")
