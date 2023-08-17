@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -35,7 +36,7 @@ func GetNetgsmClient(accessId, accessKey, sign, template string) (*NetgsmClient,
 
 func (c *NetgsmClient) SendMessage(param map[string]string, targetPhoneNumbers ...string) error {
 	for _, phoneNumber := range targetPhoneNumbers {
-		data := fmt.Sprintf(`
+		data := fmt.Sprintf(`<?xml version="1.0"?>
 <mainbody>
    <header>
        <usercode>%s</usercode>
@@ -44,7 +45,7 @@ func (c *NetgsmClient) SendMessage(param map[string]string, targetPhoneNumbers .
    </header>
    <body>
        <msg>
-           <![CDATA[%s]]>
+           <![CDATA[%s]]> 
        </msg>
        <no>%s</no>
    </body>
@@ -54,6 +55,7 @@ func (c *NetgsmClient) SendMessage(param map[string]string, targetPhoneNumbers .
 			"Content-Type": "application/xml",
 		}
 
+		log.Println(data)
 		respBody, err := c.postXML("https://api.netgsm.com.tr/sms/send/otp", data, headers)
 		if err != nil {
 			return err
@@ -65,7 +67,7 @@ func (c *NetgsmClient) SendMessage(param map[string]string, targetPhoneNumbers .
 		}
 
 		if netgsmResponse.Code != "0" {
-			return errors.New(netgsmResponse.Error)
+			return errors.New(netgsmResponse.Error + " (" + netgsmResponse.JobID + ") : " + netgsmResponse.Code)
 		}
 	}
 	return nil
